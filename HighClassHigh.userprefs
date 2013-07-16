@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game.cs">
+    <Files>
+      <File FileName="Assets\Plugins\Futile\Core\FAtlas.cs" Line="126" Column="1" />
+      <File FileName="Assets\Scripts\HeroSprite.cs" Line="19" Column="58" />
+      <File FileName="Assets\Scripts\Game.cs" Line="21" Column="77" />
+      <File FileName="Assets\Scripts\DudeSprite.cs" Line="121" Column="2" />
+      <File FileName="Assets\Scripts\Room.cs" Line="32" Column="5" />
+      <File FileName="Assets\Scripts\Dialog.cs" Line="20" Column="35" />
+      <File FileName="Assets\Scripts\HighClassHigh.cs" Line="19" Column="54" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

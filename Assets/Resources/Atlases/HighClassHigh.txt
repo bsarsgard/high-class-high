@@ -1,0 +1,92 @@
+{"frames": {
+
+"Guy_standing.png":
+{
+	"frame": {"x":2,"y":2,"w":77,"h":125},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":77,"h":125},
+	"sourceSize": {"w":77,"h":125}
+},
+"Guy_test1.png":
+{
+	"frame": {"x":81,"y":2,"w":77,"h":125},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":77,"h":125},
+	"sourceSize": {"w":77,"h":125}
+},
+"Guy_test2.png":
+{
+	"frame": {"x":160,"y":2,"w":62,"h":125},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":62,"h":125},
+	"sourceSize": {"w":62,"h":125}
+},
+"Guy_test3.png":
+{
+	"frame": {"x":224,"y":2,"w":73,"h":125},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":73,"h":125},
+	"sourceSize": {"w":73,"h":125}
+},
+"Guy_test4.png":
+{
+	"frame": {"x":299,"y":2,"w":77,"h":125},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":77,"h":125},
+	"sourceSize": {"w":77,"h":125}
+},
+"MorningCoffee_0.tga":
+{
+	"frame": {"x":378,"y":2,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"MorningCoffee_b_0.tga":
+{
+	"frame": {"x":636,"y":2,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"Notepad_transparent.png":
+{
+	"frame": {"x":2,"y":260,"w":356,"h":575},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":356,"h":575},
+	"sourceSize": {"w":356,"h":575}
+},
+"PressStart2P_0.tga":
+{
+	"frame": {"x":360,"y":260,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"Skinny_0.tga":
+{
+	"frame": {"x":618,"y":260,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "HighClassHigh.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8cc0e856fc6a1cea561a31de40f3c5a5$"
+}
+}
