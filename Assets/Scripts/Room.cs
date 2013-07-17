@@ -18,14 +18,16 @@ public class Room {
 	public Door[] Doors { get; set; }
 	public bool ShowHero { get; set; }
 	public Rect Boundaries { get; set; }
+	public Dialog Dialog { get; set; }
 	
-	public Room(string backgroundSprite, bool showHero, Rect boundaries) {
+	public Room(string backgroundSprite, bool showHero, Rect boundaries, Dialog dialog) {
 		Background = new FSprite(backgroundSprite);
 		Background.scale = 1f;
 		Background.x = 0;
 		Background.y = 0;
 		ShowHero = showHero;
 		Boundaries = boundaries;
+		Dialog = dialog;
 	}
 	
 	public Door GetDoor(float x, float y) {

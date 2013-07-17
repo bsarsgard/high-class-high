@@ -13,12 +13,12 @@ public class Game {
 		hero.realY = 0;
 		
 		// Add tilemap
-		Room entrance = new Room("SchoolFront_test", true, new Rect(-275, -200, 650, 165));
-		Room mainHall = new Room("Hallway_test2", true, new Rect(-275, -200, 650, 165));
-		Room secondHall = new Room("Hallway2_boy", true, new Rect(-275, -200, 650, 165));
-		Room history = new Room("Classroom", false, new Rect(0, 0, 0, 0));
-		Room math = new Room("Classroom", false, new Rect(0, 0, 0, 0));
-		Room cafeteria = new Room("Cafeteria", true, new Rect(-275, -200, 650, 100));
+		Room entrance = new Room("SchoolFront_test", true, new Rect(-275, -200, 650, 165), null);
+		Room mainHall = new Room("Hallway_test2", true, new Rect(-275, -200, 650, 165), null);
+		Room secondHall = new Room("Hallway2_boy", true, new Rect(-275, -200, 650, 165), null);
+		Room history = new Room("Classroom", false, new Rect(0, 0, 0, 0), new Dialog("History Question"));
+		Room math = new Room("Classroom", false, new Rect(0, 0, 0, 0), new Dialog("Math Question"));
+		Room cafeteria = new Room("Cafeteria", true, new Rect(-275, -200, 650, 100), new Dialog("Math Question"));
 		entrance.Doors = new Door[] {
 			new Door(new Rect(100, -34.99f, 170, 10), mainHall, new Vector2(0, -190))
 		};
@@ -57,12 +57,17 @@ public class Game {
 	}
 	
 	public void ResetScene() {
+		// clear it
 		Futile.stage.RemoveAllChildren();
+		// draw background
 		Futile.stage.AddChild(background.Background);
+		// draw hero
 		if (background.ShowHero) {
 			Futile.stage.AddChild(hero);
 		}
+		// draw text
 		Futile.stage.AddChild(gradeLabel);
+		// draw dialog
 		if (dialog != null) {
 			Futile.stage.AddChild(dialog.Background);
 			Futile.stage.AddChild(dialog.Title);
@@ -78,9 +83,17 @@ public class Game {
 		
 		if (dialog != null) {
 			if (Input.GetKeyUp(KeyCode.Escape)) {
+				// hide it
 				dialog = null;
+				if (!background.ShowHero) {
+					// exit the room
+					background = background.Doors[0].Destination;
+					hero.realX = background.Doors[0].DropOff.x;
+					hero.realY = background.Doors[0].DropOff.y;
+				}
 				ResetScene();
 			} else {
+				// check option clicks
 				foreach (FLabel label in dialog.Labels) {
 					if (
 						label.GetLocalMousePosition().y < 0 && 
@@ -88,19 +101,22 @@ public class Game {
 						label.GetLocalMousePosition().x > 0 &&
 						label.GetLocalMousePosition().x < (label.textRect.width)
 					) {
+						// mouse over
 						label.color = Color.blue;
 						if (Input.GetMouseButton(0)) {
+							// click
 							Debug.Log(label.text);
 						}
 					} else if (label.color == Color.blue) {
+						// remove mouse over
 						label.color = Color.black;
 					}
 				}
 			}
 		} else {
 			if (Input.GetKeyUp(KeyCode.Escape)) {
-				if (dialog == null) {
-					dialog = new Dialog("test test test test test\ntest test test test test\ntest test test test test\ntest test test test test");
+				if (background.Dialog != null) {
+					dialog = background.Dialog;
 					ResetScene();
 				}
 			} else {
@@ -149,9 +165,13 @@ public class Game {
 						// check doors
 						Door door = background.GetDoor(hero.realX, hero.realY);
 						if (door != null) {
+							// change rooms
 							background = door.Destination;
 							hero.realX = door.DropOff.x;
 							hero.realY = door.DropOff.y;
+							if (!background.ShowHero && background.Dialog != null) {
+								dialog = background.Dialog;
+							}
 							ResetScene ();
 						}
 						
