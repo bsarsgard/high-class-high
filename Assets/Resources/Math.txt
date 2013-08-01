@@ -1,0 +1,18 @@
+What is the square root of 9?	*3	2	9 is prime	i
+Simplify the algebraic expression: -2(x - 3) + 4(-2x + 8)	2x + 16	*-10x + 38	10x - 38	 -6x + 38
+Which property is used to write a(x + y) = ax + ay ?	transitivity	conductivity	*distributivity	transylvanivity
+Evaluate the algebraic expression: |-2x - y + 3| for x = 3 `and y = 5	*8	10	-x	-10
+For what value of k is the point (-2, k) on the line with `equation -3x + 3y = 4 ?	k = 1/2	k = 4/6	*k = -2/3	cannot be determined
+Solve the equation 2|3x - 2| - 3 = 7	solution set : {7/10, 2}	solution set : {1/8, 8}	solution set : {6/9, -i}	*solution set : {7/3 , -1}
+A real estate agent received a 6% commission on the selling `price of a house. If his commission was $8880 what was the `selling price of the house?	$199000	*$148000	$17227	$169000
+An electric motor makes 3,000 revolutions per minutes. How `many degrees does it rotate in one second?	64.8 million degrees / second	 360 degrees / second	*18000 degrees / second	degrees is a measurement of temperature
+The area of a rectangular field is equal to 300 square `meters. Its perimeter is equal to 70 meters. Find the length and width of this rectangle.	*W = 15 and L = 20	W = 100 and L = 30	W = 69 and L = 96	W = 60 and L = 10
+A tire rotates at 400 revolutions per minute when the car is `traveling 72km/h. What is the circumference of the tire?	6 meters	1 meter	2 meters	*3 meters
+Evaluate: `(1 - 1/10)(1 - 1/11)(1 - 1/12)...(1 - 1/99)(1 - 1/100)	infinity	0	*9/100	99/100
+It takes a boat 3 hours to travel down a river from point A `to point B.  It takes 5 hours to travel up the river from B `to A. How long would it take the same boat to go from A to B in still water?	3 hours and 30 minutes	4 hours	*3 hours and 45 minutes	4 hours and 15 minutes
+An airplane flies against the wind from A to B in 8 hours. `The same airplane returns with the wind from B to A in 7 `hours. Find the ratio of the speed of the airplane (in still air) `to the speed of the wind.	*15	1/15	3	-3
+The sum of an integer N and its reciprocal is equal to 78/15. `What is the value of N?	15/78	-5	2.5	*5
+Find the constant k so that the system of the two equations: `2x + ky = 2 and 5x - 3y = 7 has no solutions.	k = 5/6	k = -5/6	k = 6/5	*k = -6/5
+X and Y are real.  If (x + yi) / i = (7 + 9i) what is the `value of (x + yi)(x - yi)?	69	720	*130	260
+Factor the algebraic expression (x - 1)^2 - (y - 2)^2.	*(x - y + 1)(x + y - 3)	(x - y)(x + y)	(2x - 2)(2y - 4)	the expression is prime
+Simplify 8 x^3 / 2 x^-3	6 x^4	6 x^9	9 x^6	*4 x^6

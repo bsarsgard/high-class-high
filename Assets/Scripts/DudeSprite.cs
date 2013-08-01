@@ -2,6 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class DudeSprite: FSprite {
+	public enum Poses {
+		Walking,
+		Punching,
+		Jumping,
+	};
+	
 	protected static float JUMP_SPEED = 12f;
 	protected static float JUMP_DECAY = 1.2f;
 	
@@ -18,11 +24,14 @@ public class DudeSprite: FSprite {
 	protected float _jumpXVelocity = 0;
 	protected float _jumpZVelocity = 0;
 	
-	public enum Poses {
-		Walking,
-		Punching,
-		Jumping,
-	};
+	public bool facingRight = true;
+	public float speed = 200.0f;
+	public float realX = 0;
+	public float realY = 0;
+	public float realZ = 0;
+	public float hp = 100;
+	
+	public Vector2 Destination { get; set; }
 	
 	protected Poses? _pose = null;
 	public Poses? Pose {
@@ -50,15 +59,56 @@ public class DudeSprite: FSprite {
 			return Pose == Poses.Punching || Pose == Poses.Jumping;
 		}
 	}
-	public bool facingRight = true;
-	public float speed = 200.0f;
-	public float realX = 0;
-	public float realY = 0;
-	public float realZ = 0;
-	public float hp = 100;
+	public Room Room { get; set; }
 	
-	public DudeSprite(string elementName): base(elementName) {
+	public DudeSprite(string elementName, Room room, float x, float y): base(elementName) {
+		Room = room;
+		realX = x;
+		realY = y;
 		_standingElement = this.element;
+		ProcessMoves(0, 0, 0);
+	}
+	
+	public void ProcessMoves(float moveX, float moveY, float dt) {
+		this.realX += moveX * dt * this.speed;
+		this.realY += moveY * dt * this.speed / 2f;
+		
+		if (moveX != 0 || moveY != 0) {
+			this.Pose = DudeSprite.Poses.Walking;
+			if (moveX > 0) {
+				this.facingRight = true;
+			} else if (moveX < 0) {
+				this.facingRight = false;
+			}
+		} else {
+			this.Pose = null;
+		}
+
+		// check doors
+		Door door = Room.GetDoor(this.realX, this.realY);
+		if (door != null) {
+			// change rooms
+			this.Room = door.Destination;
+			this.realX = door.DropOff.x;
+			this.realY = door.DropOff.y;
+		}
+		
+		if (this.realY < Room.Boundaries.yMin) {
+			this.realY = Room.Boundaries.yMin;
+		} else if (this.realY > Room.Boundaries.yMax) {
+			this.realY = Room.Boundaries.yMax;
+		}
+		
+		if (this.realX < Room.Boundaries.xMin) {
+			this.realX = Room.Boundaries.xMin;
+		} else if (this.realX > Room.Boundaries.xMax) {
+			this.realX = Room.Boundaries.xMax;
+		}
+				
+		// set background position
+		this.x = this.realX;
+		// set hero position
+		this.y = this.realY + this.realZ;
 	}
 	
 	override public void Redraw(bool shouldForceDirty, bool shouldUpdateDepth) {
@@ -108,9 +158,9 @@ public class DudeSprite: FSprite {
 		}
 	
 		if (facingRight) {
-			this.scaleX = 1;
+			this.scaleX = Mathf.Abs(this.scaleX);
 		} else {
-			this.scaleX = -1;
+			this.scaleX = Mathf.Abs(this.scaleX) * -1;
 		}
 		
 		float delta = Time.deltaTime;

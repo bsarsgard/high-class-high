@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>unity</string>
         <key>textureFileName</key>
-        <filename>Cafeteria.png</filename>
+        <filename>Bathroom.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>Cafeteria.java</filename>
+            <filename>Bathroom.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -111,7 +111,7 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>Cafeteria.txt</filename>
+        <filename>Bathroom.txt</filename>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -146,7 +146,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/Cafeteria.png</filename>
+            <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/Bathroom.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

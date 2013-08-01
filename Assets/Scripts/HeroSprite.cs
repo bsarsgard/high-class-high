@@ -2,7 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class HeroSprite: DudeSprite {
-	public HeroSprite(): base("Guy_standing") {
+	public ReportCard ReportCard { get; set; }
+	public int Moneys { get; set; }
+	public int Pots { get; set; }
+	public int Boozes { get; set; }
+	public int Porns { get; set; }
+	
+	public HeroSprite(Room room, float x, float y): base("Guy_standing", room, x, y) {
+		//scale = 1.25f;
 		_walkingElements = new FAtlasElement[4];
 		_punchingElements = new FAtlasElement[2];
 		_jumpingElements = new FAtlasElement[4];

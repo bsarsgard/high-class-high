@@ -20,14 +20,13 @@ public class Room {
 	public Rect Boundaries { get; set; }
 	public Dialog Dialog { get; set; }
 	
-	public Room(string backgroundSprite, bool showHero, Rect boundaries, Dialog dialog) {
+	public Room(string backgroundSprite, bool showHero, Rect boundaries) {
 		Background = new FSprite(backgroundSprite);
 		Background.scale = 1f;
 		Background.x = 0;
 		Background.y = 0;
 		ShowHero = showHero;
 		Boundaries = boundaries;
-		Dialog = dialog;
 	}
 	
 	public Door GetDoor(float x, float y) {

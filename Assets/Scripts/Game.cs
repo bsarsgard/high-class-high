@@ -5,20 +5,23 @@ public class Game {
 	public Room background;
 	public Dialog dialog;
 	public HeroSprite hero;
-	public FLabel gradeLabel;
+	//public FLabel gradeLabel;
+	public ArrayList npcs;
+	public Room entrance;
+	public BathRoom bathroom;
 	
 	public Game() {
-		hero = new HeroSprite();
-		hero.realX = 0;
-		hero.realY = 0;
-		
-		// Add tilemap
-		Room entrance = new Room("SchoolFront_test", true, new Rect(-275, -200, 650, 165), null);
-		Room mainHall = new Room("Hallway_test2", true, new Rect(-275, -200, 650, 165), null);
-		Room secondHall = new Room("Hallway2_boy", true, new Rect(-275, -200, 650, 165), null);
-		Room history = new Room("Classroom", false, new Rect(0, 0, 0, 0), new Dialog("History Question"));
-		Room math = new Room("Classroom", false, new Rect(0, 0, 0, 0), new Dialog("Math Question"));
-		Room cafeteria = new Room("Cafeteria", true, new Rect(-275, -200, 650, 100), new Dialog("Math Question"));
+		// Set up rooms
+		entrance = new Room("SchoolFront_test", true, new Rect(-275, -80, 650, 45));
+		Room mainHall = new Room("Hallway_test2", true, new Rect(-275, -200, 650, 165));
+		Room secondHall = new Room("Hallway2_boy", true, new Rect(-275, -200, 650, 165));
+		ClassRoom history = new ClassRoom("History");
+		ClassRoom math = new ClassRoom("Math");
+		ClassRoom science = new ClassRoom("Science");
+		ClassRoom english = new ClassRoom("English");
+		Room cafeteria = new Room("Cafeteria", true, new Rect(-275, -200, 650, 100));
+		bathroom = new BathRoom();
+		Room outside = new Room("Outside", true, new Rect(-275, -200, 650, 100));
 		entrance.Doors = new Door[] {
 			new Door(new Rect(100, -34.99f, 170, 10), mainHall, new Vector2(0, -190))
 		};
@@ -30,7 +33,11 @@ public class Game {
 			new Door(new Rect(-275, -200, 5, 175), cafeteria, new Vector2(370, -100))
 		};
 		secondHall.Doors = new Door[] {
-			new Door(new Rect(-275, -200, 5, 175), mainHall, new Vector2(370, -35))
+			new Door(new Rect(-275, -200, 5, 175), mainHall, new Vector2(370, -35)),
+			new Door(new Rect(-200, -34.99f, 100, 10), science, new Vector2(0, 0)),
+			new Door(new Rect(-75, -34.99f, 100, 10), english, new Vector2(0, 0)),
+			new Door(new Rect(275, -34.99f, 100, 10), bathroom, new Vector2(0, 0)),
+			new Door(new Rect(375, -200, 10, 175), outside, new Vector2(-265, -35))
 		};
 		history.Doors = new Door[] {
 			new Door(new Rect(0, -1, 1, 1), mainHall, new Vector2(-255, -35))
@@ -38,22 +45,68 @@ public class Game {
 		math.Doors = new Door[] {
 			new Door(new Rect(0, -1, 1, 1), mainHall, new Vector2(200, -35))
 		};
+		science.Doors = new Door[] {
+			new Door(new Rect(0, -1, 1, 1), secondHall, new Vector2(-175, -35))
+		};
+		english.Doors = new Door[] {
+			new Door(new Rect(0, -1, 1, 1), secondHall, new Vector2(-25, -35))
+		};
+		bathroom.Doors = new Door[] {
+			new Door(new Rect(0, -1, 1, 1), secondHall, new Vector2(350, -35))
+		};
 		cafeteria.Doors = new Door[] {
 			new Door(new Rect(375, -200, 10, 175), mainHall, new Vector2(-265, -100)),
 		};
+		outside.Doors = new Door[] {
+			new Door(new Rect(-275, -200, 5, 175), secondHall, new Vector2(370, -35))
+		};
 		background = entrance;
 		
-		gradeLabel = new FLabel("MorningCoffee_b", "Freshman Year");
-		gradeLabel.color = Color.black;
-		gradeLabel.anchorX = 0; // Anchor the label at the left edge
-		gradeLabel.anchorY = 1.0f; // Anchor the label at the top edge
-		gradeLabel.x = -Futile.screen.halfWidth + 25; // Move the label to the far left hand side of the screen
-		gradeLabel.y = Futile.screen.halfHeight - 40; // Move the label to the bottom of the screen
+		// set up NPCs
+		npcs = new ArrayList();
+		//npcs.Add(new TeacherSprite(mainHall, 100, -100));
+		hero = new HeroSprite(entrance, 0, 0);
+		hero.ReportCard = new ReportCard();
+		hero.Moneys = 10;
+		
+		npcs.Add(hero);
+		
+		bathroom.Hero = hero; 
+		bathroom.SetDialog(true);
 		
 		ResetScene();
 		
 		// now music
-		FSoundManager.PlayMusic("Periscope");
+		PlayRandomMusic();
+	}
+	
+	public void PlayRandomMusic() {
+		int track = Mathf.RoundToInt(Random.Range(0, 3));
+		if (track == 0) {
+			FSoundManager.PlayMusic("GreenDaze");
+		} else if (track == 1) {
+			FSoundManager.PlayMusic("ModernRockBoy");
+		} else if (track == 2) {
+			FSoundManager.PlayMusic("Periscope");
+		} else if (track == 3) {
+			FSoundManager.PlayMusic("SmellsLikeGrunge");
+		}
+	}
+	
+	public void GameOver() {
+		Futile.stage.RemoveAllChildren();
+		FSprite background = new FSprite("Cover_blank");
+		background.scale = 1f;
+		background.x = 0;
+		background.y = 0;
+		Futile.stage.AddChild(background);
+		FLabel gradeLabel = new FLabel("MorningCoffee_b", "Final Grade: " + hero.ReportCard.GetAverage());
+		gradeLabel.color = Color.black;
+		gradeLabel.anchorX = 0; // Anchor the label at the left edge
+		gradeLabel.anchorY = 1.0f; // Anchor the label at the top edge
+		gradeLabel.x = -Futile.screen.halfWidth + 325; // Move the label to the far left hand side of the screen
+		gradeLabel.y = Futile.screen.halfHeight - 325; // Move the label to the bottom of the screen
+		Futile.stage.AddChild(gradeLabel);
 	}
 	
 	public void ResetScene() {
@@ -63,12 +116,60 @@ public class Game {
 		Futile.stage.AddChild(background.Background);
 		// draw hero
 		if (background.ShowHero) {
-			Futile.stage.AddChild(hero);
+			//Futile.stage.AddChild(hero);
+			// draw NPCs
+			foreach (DudeSprite npc in npcs) {
+				if (npc == hero || npc.Room == background) {
+					Futile.stage.AddChild(npc);
+				}
+			}
 		}
 		// draw text
+		FLabel gradeLabel = new FLabel("MorningCoffee_b", "Day " + (hero.ReportCard.Day + 1) + " of " + hero.ReportCard.TotalDays + ", Period " + (hero.ReportCard.Period + 1) + " of " + hero.ReportCard.TotalPeriods + " (" + hero.ReportCard.CurrentPeriod + ")");
+		gradeLabel.color = Color.black;
+		gradeLabel.anchorX = 0; // Anchor the label at the left edge
+		gradeLabel.anchorY = 1.0f; // Anchor the label at the top edge
+		gradeLabel.x = -Futile.screen.halfWidth + 125; // Move the label to the far left hand side of the screen
+		gradeLabel.y = Futile.screen.halfHeight - 30; // Move the label to the bottom of the screen
 		Futile.stage.AddChild(gradeLabel);
+		FLabel englishLabel = new FLabel("MorningCoffee_b", "Eng: " + hero.ReportCard.GetGrade(hero.ReportCard.English));
+		englishLabel.color = hero.ReportCard.English >= 0.8 ? Color.blue : Color.black;
+		englishLabel.anchorX = 0;
+		englishLabel.anchorY = 1.0f;
+		englishLabel.x = -Futile.screen.halfWidth + 5;
+		englishLabel.y = Futile.screen.halfHeight - 90;
+		Futile.stage.AddChild(englishLabel);
+		FLabel historyLabel = new FLabel("MorningCoffee_b", "His: " + hero.ReportCard.GetGrade(hero.ReportCard.History));
+		historyLabel.color = hero.ReportCard.History >= 0.8 ? Color.blue : Color.black;
+		historyLabel.anchorX = 0;
+		historyLabel.anchorY = 1.0f;
+		historyLabel.x = -Futile.screen.halfWidth + 5;
+		historyLabel.y = Futile.screen.halfHeight - 130;
+		Futile.stage.AddChild(historyLabel);
+		FLabel mathLabel = new FLabel("MorningCoffee_b", "Mat: " + hero.ReportCard.GetGrade(hero.ReportCard.Math));
+		mathLabel.color = hero.ReportCard.Math >= 0.8 ? Color.blue : Color.black;
+		mathLabel.anchorX = 0;
+		mathLabel.anchorY = 1.0f;
+		mathLabel.x = -Futile.screen.halfWidth + 5;
+		mathLabel.y = Futile.screen.halfHeight - 170;
+		Futile.stage.AddChild(mathLabel);
+		FLabel scienceLabel = new FLabel("MorningCoffee_b", "Sci: " + hero.ReportCard.GetGrade(hero.ReportCard.Science));
+		scienceLabel.color = hero.ReportCard.Science >= 0.8 ? Color.blue : Color.black;
+		scienceLabel.anchorX = 0;
+		scienceLabel.anchorY = 1.0f;
+		scienceLabel.x = -Futile.screen.halfWidth + 5;
+		scienceLabel.y = Futile.screen.halfHeight - 210;
+		Futile.stage.AddChild(scienceLabel);
+		FLabel moneysLabel = new FLabel("MorningCoffee_b", "$" + hero.Moneys);
+		moneysLabel.color = Color.black;
+		moneysLabel.anchorX = 0;
+		moneysLabel.anchorY = 1.0f;
+		moneysLabel.x = -Futile.screen.halfWidth + 5;
+		moneysLabel.y = Futile.screen.halfHeight - 290;
+		Futile.stage.AddChild(moneysLabel);
 		// draw dialog
 		if (dialog != null) {
+			dialog.Background.alpha = 0;
 			Futile.stage.AddChild(dialog.Background);
 			Futile.stage.AddChild(dialog.Title);
 			foreach (FLabel label in dialog.Labels) {
@@ -82,14 +183,23 @@ public class Game {
 		float moveY = 0;
 		
 		if (dialog != null) {
+			if (dialog.Background.alpha < 1.0f) {
+				dialog.Background.alpha += dt * 2f;
+			}
 			if (Input.GetKeyUp(KeyCode.Escape)) {
 				// hide it
 				dialog = null;
 				if (!background.ShowHero) {
+					if (hero.Room is BathRoom) {
+						bathroom.SetDialog(false);
+					}
 					// exit the room
-					background = background.Doors[0].Destination;
+					hero.Room = background.Doors[0].Destination;
 					hero.realX = background.Doors[0].DropOff.x;
+					hero.x = hero.realX;
 					hero.realY = background.Doors[0].DropOff.y;
+					hero.y = hero.realY;
+					background = background.Doors[0].Destination;
 				}
 				ResetScene();
 			} else {
@@ -102,14 +212,80 @@ public class Game {
 						label.GetLocalMousePosition().x < (label.textRect.width)
 					) {
 						// mouse over
-						label.color = Color.blue;
+						label.color = dialog.HilightColor;
 						if (Input.GetMouseButton(0)) {
 							// click
-							Debug.Log(label.text);
+							if (dialog is TriviaDialog) {
+								if (label == dialog.Labels[((TriviaDialog)dialog).Answer]) {
+									dialog = new NoteDialog("Correct!");
+									dialog.SetOK();
+									hero.ReportCard.Score(hero.ReportCard.CurrentPeriod, true);
+								} else {
+									dialog = new NoteDialog("Wrong!");
+									dialog.SetOK();
+									hero.ReportCard.Score(hero.ReportCard.CurrentPeriod, false);
+								}
+								if (hero.ReportCard.NextPeriod()) {
+									((ClassRoom)hero.Room).SetQuestion();
+									// it's another day
+									PlayRandomMusic();
+									if (hero.ReportCard.EndDay()) {
+										// end the game
+										GameOver();
+										break;
+									} else {
+										hero.Room = entrance;
+										background = entrance;
+										ResetScene();
+									}
+								} else {
+									ResetScene();
+									((ClassRoom)hero.Room).SetQuestion();
+								}
+							} else if (dialog is DirtbagDialog) {
+								((BathRoom)hero.Room).Action(label.text);
+								dialog = hero.Room.Dialog;
+								if (dialog == null) {
+									if (!background.ShowHero) {
+										hero.Room = background.Doors[0].Destination;
+										hero.realX = background.Doors[0].DropOff.x;
+										hero.x = hero.realX;
+										hero.realY = background.Doors[0].DropOff.y;
+										hero.y = hero.realY;
+										background = background.Doors[0].Destination;
+									}
+									if (hero.ReportCard.NextPeriod()) {
+										PlayRandomMusic();
+										// it's another day
+										if (hero.ReportCard.EndDay()) {
+											// end the game
+											GameOver();
+											break;
+										} else {
+											hero.Room = entrance;
+											background = entrance;
+										}
+									}
+									bathroom.SetDialog(true);
+								}
+								ResetScene();
+							} else if (label.text == "OK") {
+								dialog = null;
+								if (!background.ShowHero) {
+									hero.Room = background.Doors[0].Destination;
+									hero.realX = background.Doors[0].DropOff.x;
+									hero.x = hero.realX;
+									hero.realY = background.Doors[0].DropOff.y;
+									hero.y = hero.realY;
+									background = background.Doors[0].Destination;
+								}
+								ResetScene();
+								break;
+							}
 						}
-					} else if (label.color == Color.blue) {
+					} else if (label.color == dialog.HilightColor) {
 						// remove mouse over
-						label.color = Color.black;
+						label.color = dialog.TextColor;
 					}
 				}
 			}
@@ -120,92 +296,44 @@ public class Game {
 					ResetScene();
 				}
 			} else {
-				if (!hero.Busy) {
-					if (Input.GetKey(KeyCode.LeftControl)) {
-						hero.Pose = DudeSprite.Poses.Punching;
-					} else if (Input.GetKey(KeyCode.Space)) {
-						hero.Pose = DudeSprite.Poses.Jumping;
-					} else {
-					    // Handle Input
-				        if (Input.GetMouseButton(0)) {
-							// 0 = left click
-							Debug.Log (Input.mousePosition.ToString());
-							Vector2 mousePosition = new Vector2(Input.mousePosition.x - Screen.width / 2, Input.mousePosition.y - Screen.height / 2);
-							
-							if (mousePosition.x - hero.realX < -10) {
-								moveX -= 1;
-							} else if (mousePosition.x - hero.realX > 10) {
-								moveX += 1;
-							}
-							if (mousePosition.y - hero.realY < -10) {
-								moveY -= 1;
-							} else if (mousePosition.y - hero.realY > 10) {
-								moveY += 1;
-							}
-						}
-					    if (Input.GetKey("up")) { moveY += 1; }
-					    if (Input.GetKey("down")) { moveY -= 1; }
-					    if (Input.GetKey("right")) { moveX += 1; }
-					    if (Input.GetKey("left")) { moveX -= 1; }
-				     
-						hero.realX += moveX * dt * hero.speed;
-						hero.realY += moveY * dt * hero.speed / 2f;
-						
-						if (moveX != 0 || moveY != 0) {
-							hero.Pose = DudeSprite.Poses.Walking;
-							if (moveX > 0) {
-								hero.facingRight = true;
-							} else if (moveX < 0) {
-								hero.facingRight = false;
-							}
-						} else {
-							hero.Pose = null;
-						}
-				
-						// check doors
-						Door door = background.GetDoor(hero.realX, hero.realY);
-						if (door != null) {
-							// change rooms
-							background = door.Destination;
-							hero.realX = door.DropOff.x;
-							hero.realY = door.DropOff.y;
-							if (!background.ShowHero && background.Dialog != null) {
-								dialog = background.Dialog;
-							}
-							ResetScene ();
-						}
-						
-						/*
-						if (hero.realY < -200) {
-							hero.realY = -200;
-						} else if (hero.realY > -35) {
-							hero.realY = -35;
-						}
-						
-						if (hero.realX < -275) {
-							hero.realX = -275;
-						} else if (hero.realX > 375) {
-							hero.realX = 375;
-						}
-						*/
-						if (hero.realY < background.Boundaries.yMin) {
-							hero.realY = background.Boundaries.yMin;
-						} else if (hero.realY > background.Boundaries.yMax) {
-							hero.realY = background.Boundaries.yMax;
-						}
-						
-						if (hero.realX < background.Boundaries.xMin) {
-							hero.realX = background.Boundaries.xMin;
-						} else if (hero.realX > background.Boundaries.xMax) {
-							hero.realX = background.Boundaries.xMax;
-						}
+			    // Handle Input
+		        if (Input.GetMouseButton(0) && false) {
+					// 0 = left click
+					Vector2 mousePosition = new Vector2(Input.mousePosition.x - Screen.width / 2, Input.mousePosition.y - Screen.height / 2);
+					
+					if (mousePosition.x - hero.realX < -10) {
+						moveX -= 1;
+					} else if (mousePosition.x - hero.realX > 10) {
+						moveX += 1;
+					}
+					if (mousePosition.y - hero.realY < -10) {
+						moveY -= 1;
+					} else if (mousePosition.y - hero.realY > 10) {
+						moveY += 1;
 					}
 				}
-						
-				// set background position
-				hero.x = hero.realX;
-				// set hero position
-				hero.y = hero.realY + hero.realZ;
+			    if (Input.GetKey("up")) { moveY += 1; }
+			    if (Input.GetKey("down")) { moveY -= 1; }
+			    if (Input.GetKey("right")) { moveX += 1; }
+			    if (Input.GetKey("left")) { moveX -= 1; }
+		     
+				hero.ProcessMoves(moveX, moveY, dt);
+				if (hero.Room != background) {
+					background = hero.Room;
+					if (hero.Room is ClassRoom && ((ClassRoom)hero.Room).Subject != hero.ReportCard.CurrentPeriod) {
+						background = hero.Room;
+						hero.Room = background.Doors[0].Destination;
+						hero.realX = background.Doors[0].DropOff.x;
+						hero.x = hero.realX;
+						hero.realY = background.Doors[0].DropOff.y;
+						hero.y = hero.realY;
+						background = background.Doors[0].Destination;
+					}
+					if (!background.ShowHero && background.Dialog != null) {
+						dialog = background.Dialog;
+					}
+					ResetScene();
+				}
 			}
 		}
 	}

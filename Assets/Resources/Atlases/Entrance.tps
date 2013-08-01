@@ -146,7 +146,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/SchoolFront_test.png</filename>
+            <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/SchoolFront_test.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
