@@ -61,6 +61,14 @@ public class Game {
 			new Door(new Rect(-275, -200, 5, 175), secondHall, new Vector2(370, -35))
 		};
 		background = entrance;
+		dialog = new DittoDialog("Welcome to High Class High! This is a fast-track high school,\n" +
+								 "so you only have 10 days to get a straight-A report card.\n" +
+								 "Now get to the class indicated at the top of the screen!\n" +
+								 "The bathroom can be found in the East hall.\n\n" +
+								 "Move with arrow or WASD keys, ESC or Enter to dismiss\n" +
+								 "dialogs, and select dialog options with the mouse or number\n" +
+								 "keys in multiple choice screens.");
+		dialog.SetOK();
 		
 		// set up NPCs
 		npcs = new ArrayList();
@@ -81,7 +89,7 @@ public class Game {
 	}
 	
 	public void PlayRandomMusic() {
-		int track = Mathf.RoundToInt(Random.Range(0, 3));
+		int track = Mathf.RoundToInt(Random.Range(0, 4));
 		if (track == 0) {
 			FSoundManager.PlayMusic("GreenDaze");
 		} else if (track == 1) {
@@ -186,7 +194,7 @@ public class Game {
 			if (dialog.Background.alpha < 1.0f) {
 				dialog.Background.alpha += dt * 2f;
 			}
-			if (Input.GetKeyUp(KeyCode.Escape)) {
+			if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.KeypadEnter) || Input.GetKeyUp(KeyCode.Return)) {
 				// hide it
 				dialog = null;
 				if (!background.ShowHero) {
@@ -205,7 +213,41 @@ public class Game {
 			} else {
 				// check option clicks
 				foreach (FLabel label in dialog.Labels) {
+					bool keyChoice = false;
+					switch (label.text.Substring(0, 2)) {
+					case "1)":
+						keyChoice = Input.GetKeyUp("1") || Input.GetKeyUp(KeyCode.Alpha1) || Input.GetKeyUp(KeyCode.Keypad1);
+						break;
+					case "2)":
+						keyChoice = Input.GetKeyUp("2") || Input.GetKeyUp(KeyCode.Alpha2) || Input.GetKeyUp(KeyCode.Keypad2);
+						break;
+					case "3)":
+						keyChoice = Input.GetKeyUp("3") || Input.GetKeyUp(KeyCode.Alpha3) || Input.GetKeyUp(KeyCode.Keypad3);
+						break;
+					case "4)":
+						keyChoice = Input.GetKeyUp("4") || Input.GetKeyUp(KeyCode.Alpha4) || Input.GetKeyUp(KeyCode.Keypad4);
+						break;
+					case "5)":
+						keyChoice = Input.GetKeyUp("5") || Input.GetKeyUp(KeyCode.Alpha5) || Input.GetKeyUp(KeyCode.Keypad5);
+						break;
+					case "6)":
+						keyChoice = Input.GetKeyUp("6") || Input.GetKeyUp(KeyCode.Alpha6) || Input.GetKeyUp(KeyCode.Keypad6);
+						break;
+					case "7)":
+						keyChoice = Input.GetKeyUp("7") || Input.GetKeyUp(KeyCode.Alpha7) || Input.GetKeyUp(KeyCode.Keypad7);
+						break;
+					case "8)":
+						keyChoice = Input.GetKeyUp("8") || Input.GetKeyUp(KeyCode.Alpha8) || Input.GetKeyUp(KeyCode.Keypad8);
+						break;
+					case "9)":
+						keyChoice = Input.GetKeyUp("9") || Input.GetKeyUp(KeyCode.Alpha9) || Input.GetKeyUp(KeyCode.Keypad9);
+						break;
+					default:
+						keyChoice = false;
+						break;
+					}
 					if (
+						keyChoice ||
 						label.GetLocalMousePosition().y < 0 && 
 						label.GetLocalMousePosition().y > (0 - label.textRect.height) && 
 						label.GetLocalMousePosition().x > 0 &&
@@ -213,7 +255,7 @@ public class Game {
 					) {
 						// mouse over
 						label.color = dialog.HilightColor;
-						if (Input.GetMouseButton(0)) {
+						if (Input.GetMouseButtonUp(0) || keyChoice) {
 							// click
 							if (dialog is TriviaDialog) {
 								if (label == dialog.Labels[((TriviaDialog)dialog).Answer]) {
@@ -243,7 +285,7 @@ public class Game {
 									((ClassRoom)hero.Room).SetQuestion();
 								}
 							} else if (dialog is DirtbagDialog) {
-								((BathRoom)hero.Room).Action(label.text);
+								((BathRoom)hero.Room).Action(label.text.Substring(3));
 								dialog = hero.Room.Dialog;
 								if (dialog == null) {
 									if (!background.ShowHero) {
@@ -283,7 +325,7 @@ public class Game {
 								break;
 							}
 						}
-					} else if (label.color == dialog.HilightColor) {
+					} else if (label != null && dialog != null && label.color == dialog.HilightColor) {
 						// remove mouse over
 						label.color = dialog.TextColor;
 					}
@@ -297,7 +339,7 @@ public class Game {
 				}
 			} else {
 			    // Handle Input
-		        if (Input.GetMouseButton(0) && false) {
+		        if (Input.GetMouseButton(0)) {
 					// 0 = left click
 					Vector2 mousePosition = new Vector2(Input.mousePosition.x - Screen.width / 2, Input.mousePosition.y - Screen.height / 2);
 					
@@ -312,10 +354,10 @@ public class Game {
 						moveY += 1;
 					}
 				}
-			    if (Input.GetKey("up")) { moveY += 1; }
-			    if (Input.GetKey("down")) { moveY -= 1; }
-			    if (Input.GetKey("right")) { moveX += 1; }
-			    if (Input.GetKey("left")) { moveX -= 1; }
+			    if (Input.GetKey("up") || Input.GetKey(KeyCode.W)) { moveY += 1; }
+			    if (Input.GetKey("down") || Input.GetKey(KeyCode.S)) { moveY -= 1; }
+			    if (Input.GetKey("right") || Input.GetKey(KeyCode.D)) { moveX += 1; }
+			    if (Input.GetKey("left") || Input.GetKey(KeyCode.A)) { moveX -= 1; }
 		     
 				hero.ProcessMoves(moveX, moveY, dt);
 				if (hero.Room != background) {

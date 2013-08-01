@@ -18,7 +18,7 @@ public class ReportCard {
 	public float Science { get; set; }
 	
 	public int Day { get; set; }
-	public int TotalDays { get { return 15; } }
+	public int TotalDays { get { return 10; } }
 	public int Period { get; set; }
 	public int TotalPeriods { get { return 4; } }
 	public string CurrentPeriod { get { return Periods[Period]; } }
@@ -90,7 +90,7 @@ public class ReportCard {
 	}
 	
 	public string GetAverage() {
-		return GetGrade(English + History + Math + Science / 4.0f);
+		return GetGrade((English + History + Math + Science) / 4.0f);
 	}
 	
 	public string GetGrade(float score) {

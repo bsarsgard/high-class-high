@@ -18,10 +18,10 @@ public class BathRoom: Room {
 	
 	public void SetDialog(bool resetPrices) {
 		if (resetPrices) {
-			PotPrice = Mathf.Max(1, PotPrice + Mathf.RoundToInt(Random.Range(-4, 4)));
-			BoozePrice = Mathf.Max(1, BoozePrice + Mathf.RoundToInt(Random.Range(-3, 3)));
-			PornPrice = Mathf.Max(1, PornPrice + Mathf.RoundToInt(Random.Range(-2, 2)));
-			TestPrice = Mathf.Max(1, TestPrice + Mathf.RoundToInt(Random.Range(-4, 4)));
+			PotPrice = Mathf.Max(1, PotPrice + Random.Range(-4, 5));
+			BoozePrice = Mathf.Max(1, BoozePrice + Random.Range(-3, 4));
+			PornPrice = Mathf.Max(1, PornPrice + Random.Range(-2, 3));
+			TestPrice = Mathf.Max(1, TestPrice + Random.Range(-4, 5));
 		}
 		Dialog = new DirtbagDialog("Bathroom\nPot (" + Hero.Pots + "): $" + PotPrice + "\nBooze (" + Hero.Boozes + "): $" + BoozePrice + "\nPorn(" + Hero.Porns + "): $" + PornPrice + "\nTest Answers: $" + TestPrice);
 		

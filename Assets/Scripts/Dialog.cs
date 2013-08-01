@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class TriviaDialog: Dialog {
+public class TriviaDialog: DittoDialog {
 	public int Answer { get; set; }
 	
-	public TriviaDialog(string title): base("PaperTexture2", "OldNewspaperTypes") {
+	public TriviaDialog(string title): base(title) {
+	}
+}
+
+public class DittoDialog: Dialog {
+	public DittoDialog(string title): base("PaperTexture2", "OldNewspaperTypes") {
 		TextColor = new Color(93f/255f, 8f/255f, 230f/255f);
 		HilightColor = new Color(168f/255f, 83f/255f, 255f/255f);
 		SetTitle(title);
@@ -49,7 +54,7 @@ public class Dialog {
 	
 	public void SetOptions(ArrayList options) {
 		for (int iLabel = 0; iLabel < options.Count; iLabel++) {
-			FLabel label = new FLabel(TextFont, options[iLabel].ToString());
+			FLabel label = new FLabel(TextFont, iLabel + 1 + ") " + options[iLabel].ToString());
 			label.color = TextColor;
 			label.anchorX = 0; // Anchor the label at the left edge
 			label.anchorY = 1.0f; // Anchor the label at the top edge

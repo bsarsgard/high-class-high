@@ -25,7 +25,7 @@ public class DudeSprite: FSprite {
 	protected float _jumpZVelocity = 0;
 	
 	public bool facingRight = true;
-	public float speed = 200.0f;
+	public float speed = 250.0f;
 	public float realX = 0;
 	public float realY = 0;
 	public float realZ = 0;

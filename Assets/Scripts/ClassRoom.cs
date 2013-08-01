@@ -10,11 +10,9 @@ public class ClassRoom: Room {
 	}
 	
 	public void SetQuestion() {
-		Debug.Log("set " + Subject);
 		TextAsset csvFile = Resources.Load(Subject) as TextAsset;
 		string[] lines = csvFile.text.Replace("\r", "").Split("\n"[0]);
-		int q = Mathf.RoundToInt(Random.Range(0, lines.Length - 1));
-		Debug.Log(q);
+		int q = Mathf.RoundToInt(Random.Range(0, lines.Length));
 		string[] question = lines[q].Split("\t"[0]);
 		Dialog = new TriviaDialog(question[0].Replace("`", "\n"));
 		

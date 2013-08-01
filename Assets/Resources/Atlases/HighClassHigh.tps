@@ -382,7 +382,6 @@
             <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/Teacher4bigger.png</filename>
             <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/PaperTexture2.png</filename>
             <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Fonts/OldNewspaperTypes_0.tga</filename>
-            <filename>../../../../../../Dropbox/TOFBSNLFRT/HighClassHigh/Art/Cover_blank.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
