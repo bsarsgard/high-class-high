@@ -39,6 +39,7 @@ public class Dialog {
 	
 	public Dialog(string background, string font) {
 		Background = new FSprite(background);
+		Background.sortZ = 2000;
 		TextFont = font;
 		Labels = new ArrayList();
 	}
@@ -50,6 +51,7 @@ public class Dialog {
 		Title.anchorY = 1.0f; // Anchor the label at the top edge
 		Title.x = (-Background.width / 2) + 25;
 		Title.y = Futile.screen.halfHeight - 120;
+		Title.sortZ = 2001;
 	}
 	
 	public void SetOptions(ArrayList options) {
@@ -60,6 +62,7 @@ public class Dialog {
 			label.anchorY = 1.0f; // Anchor the label at the top edge
 			label.x = (-Background.width / 2) + 25;
 			label.y = Futile.screen.halfHeight - 120 - Title.textRect.height - ((iLabel + 1) * label.textRect.height);
+			label.sortZ = 2001;
 			Labels.Add(label);
 		}
 	}
@@ -71,6 +74,7 @@ public class Dialog {
 		label.anchorY = 1.0f; // Anchor the label at the top edge
 		label.x = (-Background.width / 2) + 25;
 		label.y = Futile.screen.halfHeight - 120 - Title.textRect.height - (1 * label.textRect.height);
+		label.sortZ = 2001;
 		Labels.Add(label);
 	}
 }

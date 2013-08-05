@@ -31,7 +31,9 @@ public class DudeSprite: FSprite {
 	public float realZ = 0;
 	public float hp = 100;
 	
-	public Vector2 Destination { get; set; }
+	public int? destX = null;
+	public int? destY = null;
+	public float wait = 0;
 	
 	protected Poses? _pose = null;
 	public Poses? Pose {
@@ -88,6 +90,8 @@ public class DudeSprite: FSprite {
 		Door door = Room.GetDoor(this.realX, this.realY);
 		if (door != null) {
 			// change rooms
+			this.destX = null;
+			this.destY = null;
 			this.Room = door.Destination;
 			this.realX = door.DropOff.x;
 			this.realY = door.DropOff.y;

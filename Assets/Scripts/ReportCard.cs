@@ -21,6 +21,10 @@ public class ReportCard {
 	public int TotalDays { get { return 10; } }
 	public int Period { get; set; }
 	public int TotalPeriods { get { return 4; } }
+	public int TimerMax { get; set; }
+	public float CurrentTimer { get; set; }
+	public int HallTime { get { return 30; } }
+	public int ClassTime { get { return 30; } }
 	public string CurrentPeriod { get { return Periods[Period]; } }
 	
 	public ReportCard() {
@@ -28,6 +32,14 @@ public class ReportCard {
 		History = 1.0f;
 		Math = 1.0f;
 		Science = 1.0f;
+		CurrentTimer = HallTime * 2;
+	}
+	
+	public void RefreshGrades() {
+		English = (float)_englishCorrect / (float)_englishTotal;
+		History = (float)_historyCorrect / (float)_historyTotal;
+		Math = (float)_mathCorrect / (float)_mathTotal;
+		Science = (float)_scienceCorrect / (float)_scienceTotal;
 	}
 	
 	public bool EndDay() {
@@ -36,10 +48,7 @@ public class ReportCard {
 		_historyTotal++;
 		_mathTotal++;
 		_scienceTotal++;
-		English = (float)_englishCorrect / (float)_englishTotal;
-		History = (float)_historyCorrect / (float)_historyTotal;
-		Math = (float)_mathCorrect / (float)_mathTotal;
-		Science = (float)_scienceCorrect / (float)_scienceTotal;
+		RefreshGrades();
 		
 		if (Day >= TotalDays) {
 			return true;
@@ -69,24 +78,28 @@ public class ReportCard {
 		if (isCorrect) {
 			_englishCorrect++;
 		}
+		//Debug.Log("E: " + _englishCorrect + "/" + _englishTotal);
 	}
 	
 	public void ScoreHistory(bool isCorrect) {
 		if (isCorrect) {
 			_historyCorrect++;
 		}
+		//Debug.Log("H: " + _historyCorrect + "/" + _historyTotal);
 	}
 	
 	public void ScoreMath(bool isCorrect) {
 		if (isCorrect) {
 			_mathCorrect++;
 		}
+		//Debug.Log("M: " + _mathCorrect + "/" + _mathTotal);
 	}
 	
 	public void ScoreScience(bool isCorrect) {
 		if (isCorrect) {
 			_scienceCorrect++;
 		}
+		//Debug.Log("S: " + _scienceCorrect + "/" + _scienceTotal);
 	}
 	
 	public string GetAverage() {

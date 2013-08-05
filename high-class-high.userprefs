@@ -2,19 +2,19 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game.cs">
     <Files>
-      <File FileName="Assets\Plugins\Futile\Core\FAtlasManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Room.cs" Line="16" Column="20" />
       <File FileName="Assets\Scripts\HeroSprite.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game.cs" Line="109" Column="37" />
+      <File FileName="Assets\Plugins\Futile\Core\FAtlasManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Room.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game.cs" Line="75" Column="26" />
       <File FileName="Assets\Scripts\Dialog.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DudeSprite.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NpcSprite.cs" Line="4" Column="38" />
-      <File FileName="Assets\Scripts\TeacherSprite.cs" Line="24" Column="55" />
-      <File FileName="Assets\Scripts\HighClassHigh.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DudeSprite.cs" Line="15" Column="4" />
+      <File FileName="Assets\Scripts\NpcSprite.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TeacherSprite.cs" Line="7" Column="43" />
+      <File FileName="Assets\Scripts\HighClassHigh.cs" Line="18" Column="1" />
       <File FileName="Assets\Scripts\ClassRoom.cs" Line="15" Column="80" />
-      <File FileName="Assets\Scripts\ReportCard.cs" Line="107" Column="4" />
+      <File FileName="Assets\Scripts\ReportCard.cs" Line="35" Column="30" />
       <File FileName="Assets\Scripts\BathRoom.cs" Line="24" Column="76" />
-      <File FileName="Assets\Resources\Science.txt" Line="7" Column="60" />
+      <File FileName="Assets\Resources\Science.txt" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

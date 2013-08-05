@@ -38,9 +38,9 @@ public class BathRoom: Room {
 	}
 	
 	public void Action(string action) {
-		ArrayList answers;
+		//ArrayList answers;
 		switch (action) {
-		case "OK":
+		case "OK": 
 			Dialog = null;
 			break;
 		case "Pee":
@@ -114,7 +114,9 @@ public class BathRoom: Room {
 				Hero.ReportCard.ScoreMath(true);
 				Hero.ReportCard.ScoreScience(true);
 				Hero.ReportCard.ScoreHistory(true);
-				Dialog = null;
+				Hero.ReportCard.RefreshGrades();
+				Dialog = new DirtbagDialog("Grades increased!");
+				Dialog.SetOK();
 			} else {
 				Dialog = new DirtbagDialog("Not enough moneys!");
 				Dialog.SetOK();
